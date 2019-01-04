@@ -47,17 +47,13 @@ class BasicLayout extends React.PureComponent {
   }
 
   getPageTitle() {
-    const {
-      match: { path },
-    } = this.props;
-    return path;
-    // const { routerData, location } = this.props;
-    // const { pathname } = location;
-    // let title = 'rasir';
-    // if (routerData[pathname] && routerData[pathname].name) {
-    //   title = `${routerData[pathname].name} - rasir`;
-    // }
-    // return title;
+    const { routerData, location } = this.props;
+    const { pathname } = location;
+    let title = 'rasir';
+    if (routerData[pathname] && routerData[pathname].name) {
+      title = `${routerData[pathname].name} - rasir`;
+    }
+    return title;
   }
 
   getBashRedirect = () => {
