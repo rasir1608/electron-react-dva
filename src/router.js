@@ -3,24 +3,20 @@ import { routerRedux, Route, Switch } from 'dva/router';
 import { LocaleProvider, Spin } from 'antd';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import dynamic from 'dva/dynamic';
-import { UserPageComponent } from './common/routers';
+import { getRouterData } from './common/router';
 import styles from './index.less';
 
 const { ConnectedRouter } = routerRedux;
 dynamic.setDefaultLoadingComponent(() => <Spin size="large" className={styles.globalSpin} />);
 
 function RouterConfig({ history, app }) {
-  console.log(app, UserPageComponent);
+  const routerData = getRouterData(app);
+  const BasicLayout = routerData['/'].component;
   return (
     <LocaleProvider locale={zhCN}>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route
-            key="/"
-            path="/"
-            component={UserPageComponent.component}
-            exact={UserPageComponent.exact}
-          />
+          <Route key="/" path="/" render={props => <BasicLayout {...props} />} exact={false} />
         </Switch>
       </ConnectedRouter>
     </LocaleProvider>
