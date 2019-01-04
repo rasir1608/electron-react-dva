@@ -32,7 +32,6 @@ const dynamicWrapper = (app, models, component) => {
       });
     };
   }
-  // () => import('module')
   return dynamic({
     app,
     models: () =>
@@ -91,7 +90,6 @@ export const getRouterData = app => {
   };
   // Get name from ./menu.js or just set it in the router data.
   const menuData = getFlatMenuData();
-  console.log(81, menuData);
   // Route configuration data
   // eg. {name,authority ...routerConfig }
   const routerData = {};
@@ -100,15 +98,12 @@ export const getRouterData = app => {
     // Regular match item name
     // eg.  router /user/:id === /user/chen
     const pathRegexp = pathToRegexp(path);
-    console.log(90, path, pathRegexp);
     const menuKey = Object.keys(menuData).find(key => pathRegexp.test(`${key}`));
     let menuItem = {};
     // If menuKey is not empty
     if (menuKey) {
       menuItem = menuData[menuKey];
     }
-    console.log(97, menuKey, menuItem);
-
     let router = routerConfig[path];
     // If you need to configure complex parameter routing,
     router = {
@@ -117,9 +112,6 @@ export const getRouterData = app => {
       authority: router.authority || menuItem.authority,
     };
     routerData[path] = router;
-    console.log(107, path, router);
   });
-  console.log(109, routerData);
-
   return routerData;
 };

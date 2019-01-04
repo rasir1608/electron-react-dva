@@ -80,7 +80,6 @@ class BasicLayout extends React.PureComponent {
   render() {
     const { routerData, match, loading, tip } = this.props;
     const bashRedirect = this.getBashRedirect();
-    console.log(83, bashRedirect);
     const layout = (
       <Spin spinning={!!loading} delay={500} tip={`${tip}...`}>
         <Layout>
