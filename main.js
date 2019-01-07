@@ -1,15 +1,38 @@
 const { app, BrowserWindow } = require('electron');
 const url = require('url');
 const path = require('path');
+// const reload = require('electron-reload');
+const client = require('electron-connect').client;
+
+require('./ipcMain');
 
 function isDev() {
   return process.env.NODE_ENV === 'development';
 }
+// if (isDev()) {
+//   reload(__dirname, {
+//     electron: path.join(__dirname, 'node_modules', '.bin', 'electron'),
+//     hardResetMethod: 'exit',
+//   });
+// }
 
 let win;
 function createWindow() {
   if (!win) {
-    win = new BrowserWindow({ width: 800, height: 600 });
+    win = new BrowserWindow({
+      width: 800,
+      height: 600,
+      autoHideMenuBar: true,
+      fullscreenable: false,
+      webPreferences: {
+        javascript: true,
+        plugins: true,
+        nodeIntegration: false, // 不集成 Nodejs
+        webSecurity: false,
+        preload: path.join(__dirname, './public/renderer.js'), // 但预加载的 js 文件内仍可以使用 Nodejs 的 API
+      },
+    });
+
     if (isDev()) {
       const host = process.env.HOST || '127.0.0.1';
       const port = process.env.PORT || '8000';
@@ -25,10 +48,12 @@ function createWindow() {
         })
       );
     }
+    client.create(win);
     win.webContents.openDevTools();
   }
   win.on('closed', () => {
     win = null;
+    console.log(57, 'cloaedae');
   });
 }
 
