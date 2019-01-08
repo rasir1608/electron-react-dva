@@ -9,5 +9,5 @@ gulp.task('watch:electron', () => {
   gulp.watch('main.js', electron.restart);
 
   // Reload renderer process
-  gulp.watch(['./ipcMain/*'], electron.restart);
+  gulp.watch(['./ipcMain'], electron.restart);
 });

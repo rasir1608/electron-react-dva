@@ -2,7 +2,7 @@ const { app, BrowserWindow } = require('electron');
 const url = require('url');
 const path = require('path');
 // const reload = require('electron-reload');
-const client = require('electron-connect').client;
+const { client } = require('electron-connect');
 
 require('./ipcMain');
 

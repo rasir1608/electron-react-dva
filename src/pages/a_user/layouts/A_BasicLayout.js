@@ -2,16 +2,15 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'dva/router';
 import { connect } from 'dva';
 import { getRoutes } from '@/utils/utils';
+import './A_basicLayout.less';
 
-const { electron } = window;
+// const { electron } = window;
 
 @connect(({ user: { currentUser } }) => ({
   currentUser,
 }))
 class BasicLayout extends React.PureComponent {
-  state = {
-    cpuList: [],
-  };
+  state = {};
 
   getRouteList = () => {
     const { routerData } = this.props;
@@ -20,46 +19,20 @@ class BasicLayout extends React.PureComponent {
 
   getRedirectRouter = () => {
     const { currentUser } = this.props;
-    if (currentUser && currentUser.name) return '/user/mine';
+    if (currentUser && !!currentUser.userName) return '/user/mine';
     return '/user/signin';
   };
 
-  clickBtn = () => {
-    const { ipcRenderer } = electron;
-    ipcRenderer.once('born', (event, cpuList = []) => {
-      console.log(cpuList, 'born'); // 输出 "harttle born"
-      this.setState({ cpuList });
-    });
-    ipcRenderer.send('create', 'snowtest');
-    console.log('snow', '112111');
-  };
-
   render() {
-    const routeList = this.getRouteList();
+    const routeList = this.getRouteList().reverse();
     const redirectRouter = this.getRedirectRouter();
-    const { cpuList } = this.state;
     return (
-      <div>
-        用户页面1
-        <button type="button" onClick={this.clickBtn}>
-          点击
-        </button>
-        <ul>
-          {cpuList.map((cpu, ci) => (
-            <li key={`${ci + 1}`}>
-              {Object.keys(cpu).map((key, ki) => (
-                <p key={`${ci + 1}_${ki + 1}`}>
-                  {key}:{cpu[key].toString()}
-                </p>
-              ))}
-            </li>
-          ))}
-        </ul>
+      <div className="ra-user-base">
         <Switch>
+          <Redirect from="/user" exact to={redirectRouter} />
           {routeList.map(item => (
-            <Route key={item.path} path={item.path} component={item.component} exact />
+            <Route key={item.key} path={item.path} component={item.component} exact />
           ))}
-          <Redirect key="/user" exact from="/user" to={redirectRouter} />
         </Switch>
       </div>
     );

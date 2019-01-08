@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Layout, Spin } from 'antd';
+import { Layout, Spin, Icon } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
 import { Route, Redirect, Switch } from 'dva/router';
 import { getRoutes } from '../utils/utils';
 import { getMenuData } from '../common/menu';
+import './basicLayout.less';
 
 const { Content, Header } = Layout;
 /**
@@ -27,7 +28,7 @@ const getRedirect = item => {
 };
 getMenuData().forEach(getRedirect);
 
-@connect(() => ({}))
+@connect(({ user: { currentUser } }) => ({ currentUser }))
 class BasicLayout extends React.PureComponent {
   static childContextTypes = {
     location: PropTypes.object,
@@ -74,17 +75,46 @@ class BasicLayout extends React.PureComponent {
   };
 
   render() {
-    const { routerData, match, loading, tip } = this.props;
+    const {
+      routerData,
+      match,
+      loading = false,
+      tip = '数据加载中，请稍后',
+      currentUser,
+    } = this.props;
     const bashRedirect = this.getBashRedirect();
     const layout = (
-      <Spin spinning={!!loading} delay={500} tip={`${tip}...`}>
+      <Spin wrapperClassName="global-wrap" spinning={!!loading} delay={500} tip={`${tip}...`}>
         <Layout>
-          <Header style={{ color: '#ffffff' }}>头部</Header>
+          <Icon
+            type="arrow-left"
+            style={{
+              width: '30px',
+              height: '30px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+            }}
+            title="返回"
+            onClick={() => {
+              window.history.go(-1);
+            }}
+          />
+          {currentUser && currentUser.userName && (
+            <Header>
+              <ul>
+                <li>{currentUser.userName}</li>
+              </ul>
+            </Header>
+          )}
           <Content>
             <Switch>
-              {redirectData.map(item => (
-                <Redirect key={item.from} exact from={item.from} to={item.to} />
-              ))}
+              {redirectData
+                .filter(path => path.from !== '/user')
+                .map(item => (
+                  <Redirect key={item.from} exact from={item.from} to={item.to} />
+                ))}
               {getRoutes(match.path, routerData).map(item => (
                 <Route
                   key={item.key}

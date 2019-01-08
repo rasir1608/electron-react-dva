@@ -1,7 +1,6 @@
 const { ipcMain } = require('electron');
+const userController = require('./controller/user');
 
-ipcMain.on('create', (event, person) => {
-  const os = require('os'); // not be : var os = require('os')
-  console.log('creating-person-hot101', person); // 输出："creating snowtest"
-  event.sender.send('born', os.cpus());
+Object.keys(userController).forEach(channel => {
+  ipcMain.on(channel, userController[channel]);
 });

@@ -3,7 +3,7 @@ export default {
 
   state: {
     currentUser: {
-      userName: '未登录',
+      userName: null,
       role: 'admin',
       roleList: [],
     },
