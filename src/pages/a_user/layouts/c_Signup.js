@@ -28,7 +28,6 @@ class Signup extends React.PureComponent {
       }
       const ret = ipcRenderer.sendSync('signup', { userName, password });
       const { msg, ok } = ret;
-      console.log(ret);
       if (ok) {
         const { dispatch } = this.props;
         Modal.success({
