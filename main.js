@@ -45,7 +45,7 @@ function createWindow() {
           pathname: path.join(__dirname, './dist/index.html'),
           protocol: 'file:',
           slashes: true,
-        })
+        }) 
       );
     }
     client.create(win);

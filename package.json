@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development PORT=8001 electron .",
-    "watch":"cross-env NODE_ENV=development PORT=8001 gulp watch:electron",
+    "watch": "cross-env NODE_ENV=development PORT=8001 gulp watch:electron",
     "dev": "cross-env ESLINT=none BROWSER=none PORT=8001 roadhog dev",
     "build": "cross-env ESLINT=none roadhog build",
     "packageDarwin": "electron-packager . 'Hosts' --platform=darwin --arch=x64 --icon=hosts.icns --out=./dist --asar --app-version=2.0.1 --ignore=\"(dist|src|docs|.gitignore|LICENSE|README.md|webpack.config*|node_modules)\"",

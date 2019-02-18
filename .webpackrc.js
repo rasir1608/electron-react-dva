@@ -1,27 +1,15 @@
 const path = require('path');
 const location = {
-  target: 'http://10.118.40.55:8080',
+  target: 'http://localhost:8080',
   // changeOrigin: true,
   // pathRewrite: { '^/elog-ctrl': '' },
 };
 const sit = {
-  target: 'http://fengcang.sit.sf-express.com',
+  target: 'http://xxxx.xxx.com',
 };
 
 const pathList = [
   '/analysis',
-  '/datasource',
-  '/globalConfig',
-  '/model',
-  '/modelConfig',
-  '/modelInput',
-  '/modelOutput',
-  '/download',
-  '/event',
-  '/company',
-  '/project',
-  '/admin',
-  '/msg',
   '/api',
 ];
 const dev = 0;
