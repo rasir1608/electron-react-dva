@@ -2,7 +2,7 @@ const path = require('path');
 const location = {
   target: 'http://localhost:8080',
   // changeOrigin: true,
-  // pathRewrite: { '^/elog-ctrl': '' },
+  // pathRewrite: { '^/api': '' },
 };
 const sit = {
   target: 'http://xxxx.xxx.com',
