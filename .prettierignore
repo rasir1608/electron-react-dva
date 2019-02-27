@@ -1,5 +1,5 @@
 **/*.md
 **/*.svg
 **/*.html
-src/assets/sf_font.js
+src/assets/*.js
 package.json

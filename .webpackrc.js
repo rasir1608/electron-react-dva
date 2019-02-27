@@ -9,8 +9,6 @@ const sit = {
 };
 
 const pathList = [
-  '/analysis',
-  '/api',
 ];
 const dev = 0;
 
